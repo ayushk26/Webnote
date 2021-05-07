@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block login-link %}
+<li class="nav-item">
+    <a class="nav-link" href={% url 'login' %}>Login</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href={% url 'logout' %}>Create Account</a>
+</li>
+
+{% endblock login-link %}
+
+{% block register %}
+
+<form method ="POST">
+    
+    {% csrf_token %}
+  <div class="mb-3">
+    <label for="id_username" class="form-label">Email address</label>
+    {% render_field form.username class="form-control"  %}
+  </div>
+  <div class="mb-3">
+    <label for="id_password1" class="form-label">Password</label>
+    {% render_field form.password1 class="form-control"  %}
+  </div>
+  <div class="mb-3">
+    <label for="id_password2" class="form-label">Re-enter Password</label>
+    {% render_field form.password2 class="form-control"  %}
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  {{form.errors}}
+    {% for message in messages  %}<div class="alert alert-warning" role="alert">{{message}}</div> {% endfor %}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+{% endblock register %}

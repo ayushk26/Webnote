@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+
+{% block dashboard-link %}
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href={% url 'dashboard' %}>Dashboard</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href={% url 'logout' %}>Logout</a>
+</li>
+{% endblock dashboard-link %}
+
+
+{% block newnote %}
+
+<style>
+    .newnote{
+        margin: 15px;
+        padding: 15px;
+        align-items: center;
+        border-style: solid;
+        border-color: beige;
+        visibility: hidden;
+    }
+    .new-head{
+        text-align: center;
+        font-size: xx-large;
+        font: bold;
+    }
+    .title-head{
+        font-size: x-large;
+        font: bold;
+    }
+
+</style>
+<div class="newnote" id="new-note">
+
+    <div class="new-head"> New Note</div>
+    <hr>
+    <form action = {% url 'createnote' %} method="POST">
+    {% csrf_token %}
+    <div  class="title-head">Note Title 
+    </div>
+    <input type="text" name="title" id="title" name ="title">
+
+    <div class="title-head">Note Description
+    </div>
+    <textarea name="desc" id="desc" cols="30" rows="10" name = "desc"></textarea>
+    <div><button id="save" type="submit" >Save</button></div>
+</form>
+</div>
+
+{% endblock newnote %}
+
+
+
+{% block mynotes %}
+
+<style>
+    .notes-section {
+        margin: 15px;
+        padding: 15px;
+        border-style: solid;
+        border-color: beige;
+    }
+
+    .head {
+        text-align: center;
+        font-size: xx-large;
+        font: bold;
+    }
+
+    .del-btn button{
+        background-color: white;
+    }
+    .del-btn{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .add-note link:hover{
+        background-color: white;
+    }
+    .add-note button{
+        text-align: center;
+        width: auto;
+        height: auto;
+        border-style: solid;
+        border-color: black;
+        padding: 25px;
+        font: bold;
+        font-size: 50px;
+        background-color: white;
+    }
+    .add-note :hover{
+        text-align: center;
+        width: auto;
+        border-style: solid;
+        border-color: white;
+        padding: 25px;
+        font: bold;
+        font-size: 50px;
+        background-color: lightgrey;
+        color:black;
+    }
+    .add-note button:active{
+        text-align: center;
+        width: auto;
+        border-style: solid;
+        border-color:black;
+        padding: 25px;
+        font: bold;
+        font-size: 50px;
+        background-color: lightgrey;
+        color:black;
+        
+
+    }
+</style>
+
+<div class="notes-section">
+    <div class="head">My Notes</div>
+    <hr>
+
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!--This is begining of card-->
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Dummy note Title</h5>
+                    <p class="card-text">Dummy note Description</p>
+                    <div class="del-btn">
+                        <button >Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--This is end of card-->
+        {% for note in notes %}
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{note.title}}</h5>
+                    <p class="card-text">{{note.description}}</p>
+                    <div class="del-btn">
+                        <button onclick="{{note.active}}=false" >Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+        
+        
+        <div class="add-note"><button  onclick="add()">+</button></div>
+
+        <script>
+            function add() {
+                var x =document.getElementById("new-note")
+                x.style.visibility = "visible";
+                location.href='#new-note'
+            }
+        </script>
+
+
+    </div>
+
+</div>
+
+{% endblock mynotes %}
+
