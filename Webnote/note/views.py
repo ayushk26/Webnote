@@ -10,8 +10,8 @@ def dashboard(request):
         return redirect('createnote')
     my_notes = Note.objects.filter(username__exact = user.username)
     my_notes = my_notes.filter(active__exact = True)
-
     context = {'notes':my_notes}
+
 
     return render(request,'dashboard.html',context)
 
@@ -25,7 +25,9 @@ def create_note(request):
     newpost.save()
     return redirect('dashboard')
 
-
-
-
-
+@login_required(login_url='../login')
+def delete_note(request,pk):
+    if request.method == 'POST':
+        note = Note.objects.get(pk=pk)
+        note.delete()
+    return redirect('dashboard')

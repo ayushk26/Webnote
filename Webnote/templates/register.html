@@ -14,6 +14,15 @@
 
 {% block register %}
 
+<style>
+  .form{
+    margin: auto;
+    margin-top: 50px;
+    width: 60%;
+  }
+</style>
+
+<div class="form">
 <form method ="POST">
     
     {% csrf_token %}
@@ -37,6 +46,7 @@
     {% for message in messages  %}<div class="alert alert-warning" role="alert">{{message}}</div> {% endfor %}
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+</div>
 
 
 {% endblock register %}

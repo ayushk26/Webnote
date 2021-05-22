@@ -10,6 +10,12 @@
 </li>
 {% endblock dashboard-link %}
 
+{% block hellogreet %}
+    <ul style = "margin-right: 20px; font-size:x-large; font-style: italic;">
+        Welcome <strong>{{user.username}}</strong>!
+    </ul>
+{% endblock hellogreet %}
+
 
 {% block newnote %}
 
@@ -70,9 +76,10 @@
         font: bold;
     }
 
-    .del-btn button{
+    .del-btn input{
         background-color: white;
     }
+
     .del-btn{
         display: flex;
         flex-direction: row-reverse;
@@ -124,7 +131,7 @@
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <!--This is begining of card-->
-        <div class="col">
+        <!--<div class="col">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Dummy note Title</h5>
@@ -134,7 +141,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!--This is end of card-->
         {% for note in notes %}
         <div class="col">
@@ -143,7 +150,10 @@
                     <h5 class="card-title">{{note.title}}</h5>
                     <p class="card-text">{{note.description}}</p>
                     <div class="del-btn">
-                        <button onclick="{{note.active}}=false" >Delete</button>
+                        <form action="{% url 'deletenote' note.pk %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" name="delete" value="Delete">
+                        </form>
                     </div>
                 </div>
             </div>

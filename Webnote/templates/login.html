@@ -11,6 +11,16 @@
 {% endblock login-link %}
 
 {% block login %}
+
+<style>
+  .form{
+    margin: auto;
+    margin-top: 50px;
+    width: 60%;
+  }
+</style>
+
+<div class="form">
 <form  method="POST">
     {% csrf_token %}
 <div class="mb-3">
@@ -29,5 +39,6 @@
     {% endif %}
   <button type="submit" class="btn btn-primary">Login</button>
 </form>
+</div>
   
 {% endblock login %}

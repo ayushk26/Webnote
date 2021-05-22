@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from . import views
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.dashboard,name='dashboard'),
-    path('createnote',views.create_note,name='createnote')
+    path('createnote',views.create_note,name='createnote'),
+    path('deletenote/<str:pk>/',views.delete_note,name='deletenote')
+
 ]
